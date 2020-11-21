@@ -22,9 +22,9 @@ public class ProductController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> getProducts(@RequestParam AgeBracket ageBracket,
-                                         @RequestParam IncomeBracket incomeBracket,
-                                         @RequestParam Boolean student) {
+    public ResponseEntity<?> getProductsByCriteria(@RequestParam AgeBracket ageBracket,
+                                                   @RequestParam IncomeBracket incomeBracket,
+                                                   @RequestParam Boolean student) {
 
         Iterable<Product> products = productService.getProductsByCriteria(ageBracket, incomeBracket, student);
 

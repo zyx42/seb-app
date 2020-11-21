@@ -1,6 +1,7 @@
 package se.seb.backend.domain;
 
 import java.util.EnumSet;
+import java.util.Objects;
 
 public class Product {
 
@@ -8,6 +9,8 @@ public class Product {
     private EnumSet<AgeBracket> ageBrackets;
     private EnumSet<IncomeBracket> incomeBrackets;
     private Boolean student;
+
+    public Product() {}
 
     public Product(String productName,
                    EnumSet<AgeBracket> ageBrackets,
@@ -49,6 +52,19 @@ public class Product {
 
     public void setStudent(Boolean student) {
         this.student = student;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return productName.equals(product.productName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productName);
     }
 
     @Override
