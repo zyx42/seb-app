@@ -1,5 +1,55 @@
 <div>
   <div>
+
+    <label for="ageBracket">
+      What age category do you belong to?
+    </label> <br />
+    <select
+      id="ageBracket"
+      [(ngModel)]="ageBracket">
+      <option value="JUNIOR">Junior (0-17)</option>
+      <option value="ADULT">Adult (18-64)</option>
+      <option value="SENIOR">Senior (65+)</option>
+    </select> <br />
+
+    <label for="incomeBracket">
+      What income category do you belong to?
+    </label> <br />
+    <select
+      id="incomeBracket"
+      [(ngModel)]="incomeBracket">
+      <option value="NO_INCOME">No income (0)</option>
+      <option value="LOW_INCOME">Low income (1-12000)</option>
+      <option value="MEDIUM_INCOME">Medium income (12001-40000)</option>
+      <option value="HIGH_INCOME">High income (40001+)</option>
+    </select> <br />
+
+    <label>
+      Are you a student?
+    </label> <br />
+    <input
+      type="radio"
+      id="student"
+      name="student"
+      value="true"
+      [(ngModel)]="student"/>
+    <label for="student">Yes</label>
+    <input
+      type="radio"
+      id="notStudent"
+      name="student"
+      value="false"
+      [(ngModel)]="student"/>
+    <label for="notStudent">No</label> <br />
+
+    <button
+      type="button"
+      (click)="searchProductsByCriteria()">
+      Show Recommended Products
+    </button>
+
+  </div>
+  <div>
     <h4>Product List</h4>
     <ul>
       <li *ngFor="let product of products"></li>

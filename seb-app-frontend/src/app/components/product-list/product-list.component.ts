@@ -9,15 +9,16 @@ import { ProductService } from '../../services/product.service';
 export class ProductListComponent implements OnInit {
 
   products: any;
+  ageBracket = '';
+  incomeBracket = '';
+  student = false;
 
   constructor(private productService: ProductService) { }
 
-  ngOnInit(): void {
-    this.readProducts();
-  }
+  ngOnInit(): void { }
 
-  readProducts(): void {
-    this.productService.readAll()
+  searchProductsByCriteria(): void {
+    this.productService.searchByCriteria(this.ageBracket, this.incomeBracket, this.student)
       .subscribe(
           (products: any) => {
           this.products = products;
@@ -26,9 +27,5 @@ export class ProductListComponent implements OnInit {
         error => {
           console.log(error);
     });
-  }
-
-  refresh(): void {
-    this.readProducts();
   }
 }
