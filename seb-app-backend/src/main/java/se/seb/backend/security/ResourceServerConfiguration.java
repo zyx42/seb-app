@@ -42,7 +42,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .authorizeRequests()
                     .antMatchers(PUBLIC_MATCHERS).permitAll()
                     .antMatchers(HttpMethod.GET, CUSTOMER_MATCHERS).hasRole("USER")
-                    .antMatchers(HttpMethod.POST, PRODUCT_MANAGER_MATCHERS).hasRole("PRODUCT_MANAGER")
+                    .antMatchers(PRODUCT_MANAGER_MATCHERS).hasAnyRole("USER", "PRODUCT_MANAGER")
                 .anyRequest().authenticated();
     }
 

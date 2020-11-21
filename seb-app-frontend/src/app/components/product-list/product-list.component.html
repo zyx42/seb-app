@@ -1,6 +1,8 @@
 <div>
   <div>
 
+    <fieldset>
+      <legend>Questionnaire:</legend>
     <label for="ageBracket">
       What age category do you belong to?
     </label> <br />
@@ -43,16 +45,20 @@
     <label for="notStudent">No</label> <br />
 
     <button
+      id="updateButton"
       type="button"
       (click)="searchProductsByCriteria()">
-      Show Recommended Products
+      Update Recommended Products
     </button>
+    </fieldset>
 
   </div>
-  <div>
-    <h4>Product List</h4>
-    <ul>
-      <li *ngFor="let product of products"></li>
-    </ul>
-  </div>
+  <table id="products">
+    <tr>
+      <th>Product</th>
+    </tr>
+    <tr *ngFor="let product of products; let i = index">
+      <td>{{product.productName}}</td>
+    </tr>
+  </table>
 </div>
