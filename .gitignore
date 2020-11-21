@@ -1,8 +1,46 @@
-# Intellij
+## IDEs and editors
+# idea
 .idea/
 *.iml
 *.iws
+# vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+# others
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-# Maven
+
+## Compiled output
+# maven
 log/
 target/
+# angular-cli
+dist/
+tmp/
+out-tsc/
+
+# dependencies
+node_modules/
+
+# misc
+.sass-cache/
+connect.lock
+coverage/
+libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# system files
+.DS_Store
+Thumbs.db
