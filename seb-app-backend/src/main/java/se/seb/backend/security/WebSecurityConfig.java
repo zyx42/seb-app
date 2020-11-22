@@ -21,6 +21,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import se.seb.backend.security.jwt.AuthTokenFilter;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 
 @Configuration
@@ -59,11 +60,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public static final String[] PUBLIC_MATCHERS = {
-            "/api/products"
+            "/api/auth/signin"
     };
 
     public static final String[] CUSTOMER_MATCHERS = {
-            "/api/products/product-add"
+            "/api/products"
     };
 
     public static final String[] PRODUCT_MANAGER_MATCHERS = {
@@ -80,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .antMatchers(HttpMethod.GET, CUSTOMER_MATCHERS).hasRole("USER")
-                .antMatchers(PRODUCT_MANAGER_MATCHERS).hasAnyRole("USER", "PRODUCT_MANAGER")
+                .antMatchers(PRODUCT_MANAGER_MATCHERS).hasRole("PRODUCT_MANAGER")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -90,11 +91,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
+        corsConfiguration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
+        corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedMethods(Arrays.asList(
                 HttpMethod.GET.toString(),
                 HttpMethod.POST.toString(),
                 HttpMethod.PUT.toString(),
-                HttpMethod.DELETE.toString()));
+                HttpMethod.DELETE.toString(),
+                HttpMethod.OPTIONS.toString()));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);

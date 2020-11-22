@@ -1,4 +1,0 @@
-seb:
-  app:
-    jwtSecret: seb
-    jwtExpiryMs: 86400000
