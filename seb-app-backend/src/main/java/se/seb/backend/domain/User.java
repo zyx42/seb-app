@@ -1,23 +1,32 @@
 package se.seb.backend.domain;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class User {
+import java.util.Collection;
+import java.util.EnumSet;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+public class User implements UserDetails {
 
     public enum Role {USER, PRODUCT_MANAGER}
 
     private String username;
+    @JsonIgnore
     private String password;
-    private Role role;
+    private EnumSet<Role> roles;
 
     public User() {}
 
     public User(String username,
                 String password,
-                Role role) {
+                EnumSet<Role> roles) {
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.roles = roles;
     }
 
     public String getUsername() {
@@ -36,12 +45,39 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public EnumSet<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(EnumSet<Role> roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     @Override
@@ -61,7 +97,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
-                ", role=" + role +
+                ", roles=" + roles +
                 '}';
     }
 }

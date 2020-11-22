@@ -1,11 +1,4 @@
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          seb-app-frontend:
-            clientId: seb-app-frontend
-            clientSecret: seb
-            accessTokenValiditySeconds: 300   # 5 minutes
-            refreshTokenValiditySeconds: 3600 # 60 minutes
-            authorizedGrantTypes: password, authorization_code, refresh_token
+seb:
+  app:
+    jwtSecret: seb
+    jwtExpiryMs: 86400000

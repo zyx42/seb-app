@@ -6,7 +6,6 @@ import se.seb.backend.domain.IncomeBracket;
 import se.seb.backend.domain.Product;
 import se.seb.backend.repository.ProductRepository;
 
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,6 +29,6 @@ public class ProductServiceImpl implements ProductService {
                 .filter(product -> product.getAgeBrackets().contains(ageBracket))
                 .filter(product -> product.getIncomeBrackets().contains(incomeBracket))
                 .filter(product -> !product.isStudent() || student)
-                .collect(Collectors.toCollection(ArrayList::new));
+                .collect(Collectors.toList());
     }
 }
