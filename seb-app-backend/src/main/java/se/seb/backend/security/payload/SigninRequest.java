@@ -1,6 +1,6 @@
 package se.seb.backend.security.payload;
 
-public class LoginRequest {
+public class SigninRequest {
 
     private String username;
     private String password;

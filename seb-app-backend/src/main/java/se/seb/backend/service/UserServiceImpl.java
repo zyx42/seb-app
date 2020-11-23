@@ -18,4 +18,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User was not found with username: " + username));
     }
+
+    @Override
+    public Boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public User addNewUser(User user) {
+        return userRepository.save(user);
+    }
 }

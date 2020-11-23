@@ -7,4 +7,6 @@ import se.seb.backend.domain.User;
 public interface UserService {
 
     User findByUsername(String username);
+    Boolean existsByUsername(String username);
+    User addNewUser(User newUser);
 }

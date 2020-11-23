@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class User implements UserDetails {
 
-    public enum Role {USER, PRODUCT_MANAGER}
+    public enum Role {ROLE_USER, ROLE_PRODUCT_MANAGER}
 
     private String username;
     @JsonIgnore

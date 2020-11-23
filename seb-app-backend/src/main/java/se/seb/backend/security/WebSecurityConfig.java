@@ -60,7 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public static final String[] PUBLIC_MATCHERS = {
-            "/api/auth/signin"
+            "/api/auth/signin",
+            "/api/auth/signup"
     };
 
     public static final String[] CUSTOMER_MATCHERS = {

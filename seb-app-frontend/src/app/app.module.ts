@@ -11,6 +11,7 @@ import { ProductManageComponent } from './components/product-manage/product-mana
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
     ProductAddComponent,
     ProductManageComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

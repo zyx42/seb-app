@@ -1,6 +1,6 @@
 <div>
   <form
-    *ngIf="!isLoggedIn"
+    *ngIf="!isSuccessful"
     name="form"
     (ngSubmit)="f.form.valid && onSubmit()"
     #f="ngForm"
@@ -24,14 +24,11 @@
         [(ngModel)]="form.password"
         #password="ngModel"
         required />
-    </div>
 
-    <button type="submit">
-      Sign In
-    </button>
-    <a routerLink="../register">Don't have an account?</a>
+      <button type="submit">
+        Sign Up
+      </button>
+      <a routerLink="../login">Already have an account?</a>
+    </div>
   </form>
-  <div>
-    Logged in as {{ roles }}.
-  </div>
 </div>
