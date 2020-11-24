@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {TokenStorageService} from '../../services/token-storage.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,13 +10,20 @@ import {TokenStorageService} from '../../services/token-storage.service';
 })
 export class LoginComponent implements OnInit {
 
-  form: any = {};
+  loginForm: FormGroup;
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
+  constructor(private authService: AuthService,
+              private tokenStorage: TokenStorageService,
+              private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -25,18 +33,19 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.login(this.form).subscribe(
-      data => {
-        this.tokenStorage.saveToken(data.token);
-        this.tokenStorage.saveUser(data);
+    console.log(this.loginForm.value);
+    this.authService.login(this.loginForm.value).subscribe(
+      response => {
+        this.tokenStorage.saveToken(response.token);
+        this.tokenStorage.saveUser(response);
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
         this.reloadPage();
       },
-      err => {
-        this.errorMessage = err.error.message;
+      error => {
+        this.errorMessage = error.error.message;
         this.isLoginFailed = true;
       }
     );

@@ -15,7 +15,7 @@
       display: block;
       color: white;
       text-align: center;
-      padding: 20px 20px;
+      padding: 30px 20px;
       text-decoration: none;
     }
     a:hover:not(.active) {
@@ -26,9 +26,11 @@
     }
   }
   li:first-child {
-    border-right: none;
     font-weight: bolder;
     background-color: #60CD18;
+    a {
+      padding: 23px 20px;
+    }
   }
   li:last-child {
     border-right: none;

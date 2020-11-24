@@ -2,10 +2,7 @@ package se.seb.backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import se.seb.backend.domain.AgeBracket;
 import se.seb.backend.domain.IncomeBracket;
 import se.seb.backend.domain.Product;
@@ -22,12 +19,48 @@ public class ProductController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> getProductsByCriteria(@RequestParam AgeBracket ageBracket,
-                                                   @RequestParam IncomeBracket incomeBracket,
-                                                   @RequestParam Boolean student) {
+    public ResponseEntity<?> getProducts() {
+        Iterable<Product> products = productService.getProducts();
+
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchProductsByCriteria(@RequestParam AgeBracket ageBracket,
+                                                      @RequestParam IncomeBracket incomeBracket,
+                                                      @RequestParam Boolean student) {
 
         Iterable<Product> products = productService.getProductsByCriteria(ageBracket, incomeBracket, student);
 
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/{productName}")
+    public ResponseEntity<?> getProductByProductName(@PathVariable String productName) {
+        Product product = productService.findByProductName(productName);
+
+        return ResponseEntity.ok(product);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> addNewProduct(@RequestBody Product newProduct) {
+        Product product = productService.addNewProduct(newProduct);
+
+        return ResponseEntity.ok(product);
+    }
+
+    @PutMapping("/{productName}")
+    public ResponseEntity<?> updateProduct(@PathVariable String productName,
+                                           @RequestBody Product updatedProduct) {
+        Product product = productService.updateProduct(productName, updatedProduct);
+
+        return ResponseEntity.ok(product);
+    }
+
+    @DeleteMapping("/{productName}")
+    public ResponseEntity<?> removeProduct(@PathVariable String productName) {
+        productService.removeProduct(productName);
+
+        return ResponseEntity.ok("Product has been successfully removed, product name: " + productName);
     }
 }

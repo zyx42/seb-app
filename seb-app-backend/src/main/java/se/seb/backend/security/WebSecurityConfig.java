@@ -69,7 +69,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     };
 
     public static final String[] PRODUCT_MANAGER_MATCHERS = {
-            "/api/products/product-manager"
+            "/api/products",
+            "/api/products/:productName"
     };
 
     @Override

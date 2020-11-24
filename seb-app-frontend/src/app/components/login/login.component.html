@@ -1,29 +1,24 @@
 <div>
   <form
     *ngIf="!isLoggedIn"
-    name="form"
-    (ngSubmit)="f.form.valid && onSubmit()"
-    #f="ngForm"
+    [formGroup]="loginForm"
+    (ngSubmit)="loginForm.valid && onSubmit()"
     novalidate>
     <div>
-      <label for="username">Username</label>
+      <label>Username
       <input
         type="text"
-        id="username"
-        name="username"
-        [(ngModel)]="form.username"
-        #username="ngModel"
+        formControlName="username"
         required />
+      </label>
     </div>
     <div>
-      <label for="password">Password</label>
+      <label>Password
       <input
         type="password"
-        id="password"
-        name="password"
-        [(ngModel)]="form.password"
-        #password="ngModel"
+        formControlName="password"
         required />
+      </label>
     </div>
 
     <button type="submit">

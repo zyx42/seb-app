@@ -1,1 +1,66 @@
-<p>product-add works!</p>
+<div>
+  <form
+    *ngIf="!submitted"
+    [formGroup]="addProductForm"
+    (ngSubmit)="createProduct()"
+    novalidate>
+    <div>
+      <label>Product name
+        <input
+          type="text"
+          formControlName="productName"
+          required />
+      </label>
+
+    </div>
+    <div>
+      <label>Age brackets
+          <label *ngFor="let ageBracket of ageBracketsData; let i = index">
+            <input
+              type="checkbox"
+              name="ageBrackets"
+              [value]="ageBracket.value"
+              (change)="onCheckboxChange($event)" />
+            {{ageBracket.name}}
+          </label>
+      </label>
+      <label>Income brackets
+        <label *ngFor="let incomeBracket of incomeBracketsData; let i = index">
+          <input
+            type="checkbox"
+            name="incomeBrackets"
+            [value]="incomeBracket.value"
+            (change)="onCheckboxChange($event)" />
+          {{incomeBracket.name}}
+        </label>
+      </label>
+    </div>
+
+    <label>
+      Are you a student?
+      <label>
+    <input
+      type="radio"
+      formControlName="student"
+      name="student"
+      value="true" />
+    Yes</label>
+    <label>
+    <input
+      type="radio"
+      formControlName="student"
+      name="student"
+      value="false" />
+    No</label>
+    </label>
+
+    <button type="submit">
+      Add product
+    </button>
+  </form>
+  <button routerLink="..">Go back</button>
+  <div *ngIf="submitted">
+    <h3>The product has been successfully added!</h3>
+    <button (click)="newProduct()">Add another one...</button>
+  </div>
+</div>

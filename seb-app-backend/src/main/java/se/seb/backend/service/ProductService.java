@@ -8,4 +8,8 @@ public interface ProductService {
 
     Iterable<Product> getProducts();
     Iterable<Product> getProductsByCriteria(AgeBracket ageBracket, IncomeBracket incomeBracket, Boolean student);
+    Product findByProductName(String productName);
+    Product addNewProduct(Product newProduct);
+    Product updateProduct(String productName, Product updatedProduct);
+    void removeProduct(String productName);
 }

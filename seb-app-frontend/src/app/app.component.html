@@ -4,7 +4,7 @@
           <a routerLink="home">
             <img
               src="assets/seb_logo.png"
-              height="30"
+              height="29"
               width="50"
               alt="logo" />
           </a>
@@ -12,16 +12,16 @@
         <li>
           <a routerLink="home">Home</a>
         </li>
-        <li>
+        <li *ngIf="showProductRecommendations">
           <a routerLink="products">Products</a>
         </li>
-        <li>
-          <a routerLink="product-manage">Manage products</a>
+        <li *ngIf="showProductManagement">
+          <a routerLink="products-manage">Manage products</a>
         </li>
-        <li>
+        <li *ngIf="isLoggedIn">
           <a (click)="logout()">Logout</a>
         </li>
-        <li>
+        <li *ngIf="!isLoggedIn">
           <a routerLink="login">Login</a>
         </li>
       </ul>

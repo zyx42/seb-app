@@ -1,1 +1,16 @@
-<p>product-manage works!</p>
+<div>
+  <h4>Product List</h4>
+  <table>
+    <tr>
+      <th>Product</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let product of products; let i = index">
+      <td>{{product.productName}}</td>
+      <td><button [routerLink]='["/products-manage/", product.productName]'>Edit</button></td>
+      <td><button (click)="removeProduct(product.productName)">Delete</button></td>
+    </tr>
+  </table>
+  <a routerLink="product-add">Add new product</a>
+</div>

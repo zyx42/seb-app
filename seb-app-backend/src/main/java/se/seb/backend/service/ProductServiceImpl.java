@@ -31,4 +31,25 @@ public class ProductServiceImpl implements ProductService {
                 .filter(product -> !product.isStudent() || student)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Product findByProductName(String productName) {
+        return productRepository.findByProductName(productName)
+                .orElseThrow(() -> new RuntimeException("Product was not found with name: " + productName));
+    }
+
+    @Override
+    public Product addNewProduct(Product newProduct) {
+        return productRepository.addProduct(newProduct);
+    }
+
+    @Override
+    public Product updateProduct(String productName, Product updatedProduct) {
+        return productRepository.updateProduct(productName, updatedProduct);
+    }
+
+    @Override
+    public void removeProduct(String productName) {
+        productRepository.removeProduct(productName);
+    }
 }
