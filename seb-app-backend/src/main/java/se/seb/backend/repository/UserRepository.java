@@ -16,8 +16,14 @@ public class UserRepository {
 
         // Populating user list with hardcoded default values;
         // Password is just an encoded value of "password"
-        User customer = new User("customer", "$2a$10$0zn118c9MCbWcoU.B1GxaOcU6.JPjuQL8/dobcDFWzKu7COL65/I2", EnumSet.of(User.Role.ROLE_USER));
-        User product_manager = new User("product_manager", "$2a$10$0zn118c9MCbWcoU.B1GxaOcU6.JPjuQL8/dobcDFWzKu7COL65/I2", EnumSet.of(User.Role.ROLE_USER, User.Role.ROLE_PRODUCT_MANAGER));
+        User customer = new User(
+                "customer",
+                "$2a$10$0zn118c9MCbWcoU.B1GxaOcU6.JPjuQL8/dobcDFWzKu7COL65/I2",
+                EnumSet.of(User.Role.ROLE_USER));
+        User product_manager = new User(
+                "product_manager",
+                "$2a$10$0zn118c9MCbWcoU.B1GxaOcU6.JPjuQL8/dobcDFWzKu7COL65/I2",
+                EnumSet.of(User.Role.ROLE_USER, User.Role.ROLE_PRODUCT_MANAGER));
 
         users.add(customer);
         users.add(product_manager);
