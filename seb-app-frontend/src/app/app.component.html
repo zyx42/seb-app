@@ -1,41 +1,45 @@
-  <nav class="topnav">
-      <ul>
-        <li>
-          <a routerLink="home">
-            <img
-              src="assets/seb_logo.png"
-              height="29"
-              width="50"
-              alt="logo" />
-          </a>
-        </li>
-        <li>
-          <a routerLink="home">Home</a>
-        </li>
-        <li *ngIf="showProductRecommendations">
-          <a routerLink="products">Products</a>
-        </li>
-        <li *ngIf="showProductManagement">
-          <a routerLink="products-manage">Manage products</a>
-        </li>
-        <li *ngIf="isLoggedIn">
-          <a (click)="logout()">Logout</a>
-        </li>
-        <li *ngIf="!isLoggedIn">
-          <a routerLink="login">Login</a>
-        </li>
-      </ul>
-  </nav>
+<nav class="top-bar">
+  <a routerLink="home">
+    <img
+      id="brand"
+      src="assets/images/seb_logo.png"
+      alt="logo" />
+  </a>
+  <ul>
+    <li>
+      <a routerLink="home"
+         routerLinkActive="active">HOME</a>
+    </li>
+    <li *ngIf="showProductRecommendations">
+      <a routerLink="products"
+         routerLinkActive="active">PRODUCTS</a>
+    </li>
+    <li *ngIf="showProductManagement">
+      <a routerLink="products-manage"
+         routerLinkActive="active">MANAGE PRODUCTS</a>
+    </li>
+    <li>
+      <a
+        *ngIf="!isLoggedIn"
+        routerLink="login"
+        routerLinkActive="active">LOGIN</a>
+      <a
+        *ngIf="isLoggedIn"
+        (click)="logout()">LOGOUT</a>
+    </li>
+  </ul>
 
-  <div class="content">
-    <router-outlet></router-outlet>
-  </div>
+</nav>
 
-  <div class="footer">
-    <p>
-      © Skandinaviska Enskilda Banken AB (publ)
-    </p>
-    <p>
-      SEB Group
-    </p>
-  </div>
+<div class="content-container">
+  <router-outlet></router-outlet>
+</div>
+
+<div class="footer">
+  <p>
+    © Skandinaviska Enskilda Banken AB (publ)
+  </p>
+  <p>
+    SEB Group
+  </p>
+</div>

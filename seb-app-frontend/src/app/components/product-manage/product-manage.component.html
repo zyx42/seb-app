@@ -1,16 +1,24 @@
 <div>
-  <h4>Product List</h4>
-  <table>
+  <table class="product-table">
     <tr>
-      <th>Product</th>
-      <th></th>
-      <th></th>
+      <th>PRODUCT</th>
+      <th>EDIT</th>
+      <th>DELETE</th>
     </tr>
     <tr *ngFor="let product of products; let i = index">
       <td>{{product.productName}}</td>
-      <td><button [routerLink]='["/products-manage/", product.productName]'>Edit</button></td>
-      <td><button (click)="removeProduct(product.productName)">Delete</button></td>
+      <td><button
+        [routerLink]='["/products-manage/", product.productName]'
+        class="edit-button"
+      >Edit</button></td>
+      <td><button
+        (click)="removeProduct(product.productName)"
+        class="delete-button"
+      >X</button></td>
     </tr>
   </table>
-  <a routerLink="product-add">Add new product</a>
+  <button
+    routerLink="product-add"
+    class="add-product-button"
+  >Add new product</button>
 </div>

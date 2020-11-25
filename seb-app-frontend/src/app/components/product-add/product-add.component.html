@@ -1,66 +1,77 @@
-<div>
+<div class="form-container">
   <form
+    class="seb-form"
     *ngIf="!submitted"
     [formGroup]="addProductForm"
     (ngSubmit)="createProduct()"
     novalidate>
-    <div>
-      <label>Product name
-        <input
-          type="text"
-          formControlName="productName"
-          required />
-      </label>
-
-    </div>
-    <div>
-      <label>Age brackets
+    <fieldset>
+      <legend>NEW PRODUCT</legend>
+      <div class="form-group">
+        <label><b>Product name</b>
+          <input
+            type="text"
+            formControlName="productName"
+            required />
+        </label>
+      </div>
+      <div class="form-group">
+        <label><b>What age categories of people would the product suit?</b> <br />
           <label *ngFor="let ageBracket of ageBracketsData; let i = index">
             <input
               type="checkbox"
               name="ageBrackets"
               [value]="ageBracket.value"
               (change)="onCheckboxChange($event)" />
-            {{ageBracket.name}}
+            {{ageBracket.name}} <br />
           </label>
-      </label>
-      <label>Income brackets
-        <label *ngFor="let incomeBracket of incomeBracketsData; let i = index">
-          <input
-            type="checkbox"
-            name="incomeBrackets"
-            [value]="incomeBracket.value"
-            (change)="onCheckboxChange($event)" />
-          {{incomeBracket.name}}
         </label>
-      </label>
-    </div>
-
-    <label>
-      Are you a student?
-      <label>
-    <input
-      type="radio"
-      formControlName="student"
-      name="student"
-      value="true" />
-    Yes</label>
-    <label>
-    <input
-      type="radio"
-      formControlName="student"
-      name="student"
-      value="false" />
-    No</label>
-    </label>
-
-    <button type="submit">
-      Add product
-    </button>
+      </div>
+      <div class="form-group">
+        <label><b>What income categories of people would the product suit?</b> <br />
+          <label *ngFor="let incomeBracket of incomeBracketsData; let i = index">
+            <input
+              type="checkbox"
+              name="incomeBrackets"
+              [value]="incomeBracket.value"
+              (change)="onCheckboxChange($event)" />
+            {{incomeBracket.name}} <br />
+          </label>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          <b>Is the product going to be aimed at students?</b>
+          <label> <br />
+            <input
+              type="radio"
+              formControlName="student"
+              name="student"
+              value="true" />
+            Yes</label>
+          <label>
+            <input
+              type="radio"
+              formControlName="student"
+              name="student"
+              value="false" />
+            No</label>
+        </label>
+      </div>
+      <div class="form-group">
+        <input
+          type="submit"
+          value="Add product" />
+        <button
+          routerLink=".."
+          class="back-button"
+        >Go back</button>
+      </div>
+    </fieldset>
   </form>
-  <button routerLink="..">Go back</button>
   <div *ngIf="submitted">
     <h3>The product has been successfully added!</h3>
+    <button routerLink="..">Go back</button>
     <button (click)="newProduct()">Add another one...</button>
   </div>
 </div>
