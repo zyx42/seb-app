@@ -1,5 +1,7 @@
 package se.seb.backend.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import se.seb.backend.domain.AgeBracket;
 import se.seb.backend.domain.IncomeBracket;
@@ -10,6 +12,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     private final ProductRepository productRepository;
 
@@ -40,16 +44,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product addNewProduct(Product newProduct) {
-        return productRepository.addProduct(newProduct);
+        Product product = productRepository.addProduct(newProduct);
+        logger.info("product {} has been added", product.getProductName());
+
+        return product;
     }
 
     @Override
     public Product updateProduct(String productName, Product updatedProduct) {
-        return productRepository.updateProduct(productName, updatedProduct);
+        Product product = productRepository.updateProduct(productName, updatedProduct);
+        logger.info("product {} has been updated", productName);
+
+        return product;
     }
 
     @Override
     public void removeProduct(String productName) {
         productRepository.removeProduct(productName);
+        logger.info("product {} has been removed", productName);
     }
 }
