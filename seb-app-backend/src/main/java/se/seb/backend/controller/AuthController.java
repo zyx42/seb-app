@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import se.seb.backend.domain.User;
 import se.seb.backend.security.payload.JwtResponse;
+import se.seb.backend.security.payload.MessageResponse;
 import se.seb.backend.security.payload.SigninRequest;
 import se.seb.backend.security.jwt.JwtUtils;
 import se.seb.backend.security.payload.SignupRequest;
@@ -56,7 +57,7 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
 
         if (userService.existsByUsername(signupRequest.getUsername())) {
-            return ResponseEntity.badRequest().body("Error: Username is already taken.");
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken."));
         }
 
         User newUser = new User(signupRequest.getUsername(),
@@ -64,6 +65,6 @@ public class AuthController {
                 EnumSet.of(User.Role.ROLE_USER));
         userService.addNewUser(newUser);
 
-        return ResponseEntity.ok("User has been registered.");
+        return ResponseEntity.ok(new MessageResponse("User has been registered."));
     }
 }

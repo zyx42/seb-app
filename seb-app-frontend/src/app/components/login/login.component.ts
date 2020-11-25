@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {TokenStorageService} from '../../services/token-storage.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
+              private router: Router,
               private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -41,18 +43,13 @@ export class LoginComponent implements OnInit {
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-        this.reloadPage();
+        window.location.replace('products');
       },
       error => {
         this.errorMessage = error.error.message;
         this.isLoginFailed = true;
       }
     );
-  }
-
-  reloadPage(): void {
-    window.location.reload();
   }
 
 }
