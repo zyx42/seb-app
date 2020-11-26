@@ -43,6 +43,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Boolean existsByProductName(String productName) {
+        return productRepository.existsByProductName(productName);
+    }
+
+    @Override
     public Product addNewProduct(Product newProduct) {
         Product product = productRepository.addProduct(newProduct);
         logger.info("product {} has been added", product.getProductName());

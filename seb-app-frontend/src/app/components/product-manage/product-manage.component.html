@@ -1,4 +1,9 @@
 <div>
+  <div
+    *ngIf="productRemoved"
+    class="alert-success">
+    Product has been successfully removed!
+  </div>
   <table class="product-table">
     <tr>
       <th>PRODUCT</th>

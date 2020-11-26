@@ -5,6 +5,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Objects;
@@ -14,9 +17,14 @@ public class User implements UserDetails {
 
     public enum Role {ROLE_USER, ROLE_PRODUCT_MANAGER}
 
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String username;
     @JsonIgnore
+    @NotBlank
+    @Size(min = 6, max = 120)
     private String password;
+    @NotEmpty
     private EnumSet<Role> roles;
 
     public User() {}

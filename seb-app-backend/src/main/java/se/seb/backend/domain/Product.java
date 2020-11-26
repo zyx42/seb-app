@@ -1,13 +1,22 @@
 package se.seb.backend.domain;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.EnumSet;
 import java.util.Objects;
 
 public class Product {
 
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String productName;
+    @NotEmpty
     private EnumSet<AgeBracket> ageBrackets;
+    @NotEmpty
     private EnumSet<IncomeBracket> incomeBrackets;
+    @NotNull
     private Boolean student;
 
     public Product() {}

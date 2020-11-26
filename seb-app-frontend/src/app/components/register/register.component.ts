@@ -19,12 +19,22 @@ export class RegisterComponent implements OnInit {
               private router: Router,
               private fb: FormBuilder) {
     this.registrationForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(20)]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(20)]]
     });
   }
 
   ngOnInit(): void {
+  }
+
+  get f(): any {
+    return this.registrationForm.controls;
   }
 
   onSubmit(): void {
@@ -33,10 +43,10 @@ export class RegisterComponent implements OnInit {
         console.log(response);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.router.navigate(['/login']);
+        window.location.reload();
       },
       error => {
-        this.errorMessage = error.message;
+        this.errorMessage = error.error.message;
         this.isSignUpFailed = true;
       }
     );

@@ -16,13 +16,17 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService,
               private fb: FormBuilder) {
     this.queryForm = this.fb.group({
-      ageBracket: ['', Validators.required],
-      incomeBracket: ['', Validators.required],
-      student: ['', Validators.required]
+      ageBracket: ['', [Validators.required]],
+      incomeBracket: ['', [Validators.required]],
+      student: ['', [Validators.required]]
     });
   }
 
   ngOnInit(): void { }
+
+  get f(): any {
+    return this.queryForm.controls;
+  }
 
   searchProductsByCriteria(): void {
     this.productService.searchByCriteria(

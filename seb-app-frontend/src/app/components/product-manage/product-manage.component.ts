@@ -9,6 +9,7 @@ import {ProductService} from '../../services/product.service';
 export class ProductManageComponent implements OnInit {
 
   products: any;
+  productRemoved = false;
 
   constructor(private productService: ProductService) { }
 
@@ -33,6 +34,7 @@ export class ProductManageComponent implements OnInit {
     this.productService.delete(productName).subscribe(
       response => {
         console.log(response);
+        this.productRemoved = true;
       }
     );
     this.readProducts();

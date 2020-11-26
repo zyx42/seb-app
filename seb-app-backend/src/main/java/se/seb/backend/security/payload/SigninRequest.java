@@ -1,8 +1,12 @@
 package se.seb.backend.security.payload;
 
+import javax.validation.constraints.NotBlank;
+
 public class SigninRequest {
 
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
 
     public String getUsername() {

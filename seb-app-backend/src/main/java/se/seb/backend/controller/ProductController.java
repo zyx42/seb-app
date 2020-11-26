@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import se.seb.backend.domain.AgeBracket;
 import se.seb.backend.domain.IncomeBracket;
 import se.seb.backend.domain.Product;
+import se.seb.backend.security.payload.MessageResponse;
 import se.seb.backend.service.ProductService;
 
 @RestController
@@ -44,6 +45,13 @@ public class ProductController {
 
     @PostMapping("")
     public ResponseEntity<?> addNewProduct(@RequestBody Product newProduct) {
+
+        if (productService.existsByProductName(newProduct.getProductName())) {
+
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse("Error: Product with such a name already exists."));
+        }
+
         Product product = productService.addNewProduct(newProduct);
 
         return ResponseEntity.ok(product);
@@ -52,6 +60,14 @@ public class ProductController {
     @PutMapping("/{productName}")
     public ResponseEntity<?> updateProduct(@PathVariable String productName,
                                            @RequestBody Product updatedProduct) {
+
+        if (!productName.equalsIgnoreCase(updatedProduct.getProductName()) &&
+                productService.existsByProductName(updatedProduct.getProductName())) {
+
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse("Error: Product with such a name already exists."));
+        }
+
         Product product = productService.updateProduct(productName, updatedProduct);
 
         return ResponseEntity.ok(product);
@@ -61,6 +77,7 @@ public class ProductController {
     public ResponseEntity<?> removeProduct(@PathVariable String productName) {
         productService.removeProduct(productName);
 
-        return ResponseEntity.ok("Product has been successfully removed, product name: " + productName);
+        return ResponseEntity.ok(
+                new MessageResponse("Product has been successfully removed, product name: " + productName));
     }
 }

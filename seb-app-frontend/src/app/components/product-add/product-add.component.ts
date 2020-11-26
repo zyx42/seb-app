@@ -21,12 +21,17 @@ export class ProductAddComponent implements OnInit {
     { name: 'Medium income(12001-40000)', value: 'MEDIUM_INCOME' },
     { name: 'High income (40001+)', value: 'HIGH_INCOME' }
   ];
-  submitted = false;
+  isSubmitted = false;
+  isSubmitFailed = false;
+  errorMessage = '';
 
   constructor(private productService: ProductService,
               private fb: FormBuilder) {
     this.addProductForm = this.fb.group({
-      productName: ['', Validators.required],
+      productName: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(20)]],
       ageBrackets: this.fb.array([], [Validators.required]),
       incomeBrackets: this.fb.array([], [Validators.required]),
       student: ['', [Validators.required]]
@@ -34,6 +39,10 @@ export class ProductAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  get f(): any {
+    return this.addProductForm.controls;
   }
 
   onCheckboxChange(e: any): void {
@@ -52,22 +61,20 @@ export class ProductAddComponent implements OnInit {
     this.productService.create(this.addProductForm.value).subscribe(
       response => {
         console.log(response);
-        this.submitted = true;
+        this.isSubmitted = true;
       },
       error => {
+        this.errorMessage = error.error.message;
+        this.isSubmitFailed = true;
         console.log(error);
       }
     );
   }
 
   newProduct(): void {
-    this.submitted = false;
-    this.addProductForm.patchValue({
-      productName: '',
-      ageBracket: [],
-      incomeBracket: [],
-      student: ''
-    });
+    this.isSubmitted = false;
+    this.isSubmitFailed = false;
+    this.addProductForm.reset();
   }
 
 }

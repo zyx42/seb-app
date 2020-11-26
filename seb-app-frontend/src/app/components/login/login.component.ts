@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {TokenStorageService} from '../../services/token-storage.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 
 @Component({
@@ -34,6 +34,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  get f(): any {
+    return this.loginForm.controls;
+  }
+
   onSubmit(): void {
     console.log(this.loginForm.value);
     this.authService.login(this.loginForm.value).subscribe(
@@ -43,7 +47,7 @@ export class LoginComponent implements OnInit {
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        window.location.replace('products');
+        window.location.reload();
       },
       error => {
         this.errorMessage = error.error.message;

@@ -42,6 +42,23 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    public void whenExistsByProductName_thenReturnBoolean() {
+        Product test_product = new Product(
+                "test_product",
+                EnumSet.of(AgeBracket.ADULT),
+                EnumSet.of(IncomeBracket.MEDIUM_INCOME),
+                false);
+
+        productRepository.addProduct(test_product);
+
+        try {
+            assertThat(productRepository.existsByProductName(test_product.getProductName())).isTrue();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void whenAddProduct_thenReturnProduct() {
         Product test_product = new Product(
                 "test_product",

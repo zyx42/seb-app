@@ -68,6 +68,15 @@ public class ProductRepository {
         return products.stream().filter(p -> p.getProductName().equalsIgnoreCase(productName)).findFirst();
     }
 
+    public Boolean existsByProductName(String productName) {
+        Optional<Product> productOptional = products.stream().filter(p -> p.getProductName().equalsIgnoreCase(productName)).findFirst();
+        if (productOptional.isPresent()) {
+            return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
+        }
+    }
+
     public Product addProduct(Product newProduct) {
         products.add(newProduct);
 

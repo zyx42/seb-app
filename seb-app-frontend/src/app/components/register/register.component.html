@@ -3,31 +3,50 @@
     class="seb-form"
     *ngIf="!isSuccessful"
     [formGroup]="registrationForm"
-    (ngSubmit)="registrationForm.valid && onSubmit()"
+    (ngSubmit)="onSubmit()"
     novalidate>
     <fieldset>
       <legend>REGISTRATION FORM</legend>
+      <div *ngIf="isSignUpFailed"
+           class="alert-danger">
+        {{errorMessage}}
+      </div>
       <div class="form-group">
         <label><b>Username</b>
           <input
             type="text"
             formControlName="username"
-            placeholder="Enter username..."
-            required />
+            placeholder="Enter username..." />
         </label>
+          <div *ngIf="f.username.touched && f.username.invalid"
+               class="alert-danger">
+            <div *ngIf="f.username.errors.required">Username is required.</div>
+            <div *ngIf="f.username.errors.minlength">Username should be at least 3 characters long.</div>
+            <div *ngIf="f.username.errors.maxlength">Username should not exceed 20 characters.</div>
+          </div>
         <label><b>Password</b>
           <input
             type="password"
             formControlName="password"
-            placeholder="Enter password..."
-            required />
+            placeholder="Enter password..." />
         </label>
+          <div *ngIf="f.password.touched && f.password.invalid"
+               class="alert-danger">
+            <div *ngIf="f.password.errors.required">Password is required.</div>
+            <div *ngIf="f.password.errors.minlength">Password should be at least 6 characters long.</div>
+            <div *ngIf="f.password.errors.maxlength">Password should not exceed 20 characters.</div>
+          </div>
       </div>
       <div class="form-group">
         <input type="submit"
+               [disabled]="!registrationForm.valid"
                value="Sign Up" /> <br />
         <p class="extra-link">Already have an account? <a routerLink="../login">Sign in</a>.</p>
       </div>
     </fieldset>
   </form>
+  <div *ngIf="isSuccessful"
+        class="form-container alert-big-success">
+    Successfully registered! You can proceed to log in with your new username and password.
+  </div>
 </div>

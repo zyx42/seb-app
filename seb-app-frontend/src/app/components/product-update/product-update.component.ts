@@ -22,13 +22,18 @@ export class ProductUpdateComponent implements OnInit {
     { name: 'Medium income(12001-40000)', value: 'MEDIUM_INCOME' },
     { name: 'High income (40001+)', value: 'HIGH_INCOME' }
   ];
-  updated = false;
+  isUpdated = false;
+  isUpdateFailed = false;
+  errorMessage = '';
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
               private fb: FormBuilder) {
     this.updateProductForm = this.fb.group({
-      productName: ['', Validators.required],
+      productName: ['', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(20)]],
       ageBrackets: this.fb.array([], [Validators.required]),
       incomeBrackets: this.fb.array([], [Validators.required]),
       student: ['false', [Validators.required]]
@@ -36,8 +41,13 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updated = false;
+    this.isUpdated = false;
+    this.isUpdateFailed = false;
     this.getProduct(this.route.snapshot.paramMap.get('productName') || '');
+  }
+
+  get f(): any {
+    return this.updateProductForm.controls;
   }
 
   getProduct(productName: string): void {
@@ -49,7 +59,9 @@ export class ProductUpdateComponent implements OnInit {
           student: response.student + ''
         });
         this.updateProductForm.setControl('ageBrackets', this.fb.array(response.ageBrackets));
+        this.updateProductForm.controls.ageBrackets.setValidators(Validators.required);
         this.updateProductForm.setControl('incomeBrackets', this.fb.array(response.incomeBrackets));
+        this.updateProductForm.controls.incomeBrackets.setValidators(Validators.required);
       },
       error => {
         console.log(error);
@@ -59,7 +71,6 @@ export class ProductUpdateComponent implements OnInit {
 
   onCheckboxChange(e: any): void {
     const checkArray: FormArray = this.updateProductForm.get(e.target.name) as FormArray;
-    console.log(this.updateProductForm.value);
 
     if (e.target.checked) {
       checkArray.push(new FormControl(e.target.value));
@@ -67,6 +78,7 @@ export class ProductUpdateComponent implements OnInit {
       const index = checkArray.controls.findIndex(x => x.value === e.target.value);
       checkArray.removeAt(index);
     }
+    console.log(this.updateProductForm.controls.incomeBrackets.value);
   }
 
   updateProduct(): void {
@@ -74,9 +86,11 @@ export class ProductUpdateComponent implements OnInit {
       .subscribe(
       response => {
         console.log(response);
-        this.updated = true;
+        this.isUpdated = true;
       },
       error => {
+        this.errorMessage = error.error.message;
+        this.isUpdateFailed = true;
         console.log(error);
       }
     );

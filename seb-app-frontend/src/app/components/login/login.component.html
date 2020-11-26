@@ -3,31 +3,48 @@
     class="seb-form"
     *ngIf="!isLoggedIn"
     [formGroup]="loginForm"
-    (ngSubmit)="loginForm.valid && onSubmit()"
+    (ngSubmit)="onSubmit()"
     novalidate>
     <fieldset>
       <legend>LOGIN FORM</legend>
+      <div *ngIf="isLoginFailed"
+           class="alert-danger">
+        {{errorMessage}}
+      </div>
       <div class="form-group">
         <label><b>Username</b>
           <input
             type="text"
             formControlName="username"
-            placeholder="Your username..."
-            required />
+            placeholder="Your username..." />
+          <div *ngIf="f.username.touched && f.username.invalid"
+               class="alert-danger">
+            <div *ngIf="f.username.errors.required">Username is required.</div>
+          </div>
         </label>
+
         <label><b>Password</b>
           <input
             type="password"
             formControlName="password"
-            placeholder="Your password..."
-            required />
+            placeholder="Your password..." />
         </label>
+        <div *ngIf="f.password.touched && f.password.invalid"
+             class="alert-danger">
+          <div *ngIf="f.password.errors.required">Password is required.</div>
+        </div>
       </div>
       <div class="form-group">
         <input type="submit"
+               [disabled]="!loginForm.valid"
                value="Sign In" /> <br />
         <p class="extra-link">Don't have an account yet? <a routerLink="../register">Sign up</a>.</p>
       </div>
     </fieldset>
   </form>
+
+  <div *ngIf="isLoggedIn"
+      class="form-container alert-big-success">
+    Successfully logged in! You can proceed with using our services.
+  </div>
 </div>

@@ -1,19 +1,28 @@
 <div class="form-container">
   <form
     class="seb-form"
-    *ngIf="!submitted"
+    *ngIf="!isSubmitted"
     [formGroup]="addProductForm"
     (ngSubmit)="createProduct()"
     novalidate>
     <fieldset>
       <legend>NEW PRODUCT</legend>
+      <div *ngIf="isSubmitFailed"
+           class="alert-danger">
+        {{errorMessage}}
+      </div>
       <div class="form-group">
         <label><b>Product name</b>
           <input
             type="text"
-            formControlName="productName"
-            required />
+            formControlName="productName" />
         </label>
+        <div *ngIf="f.productName.touched && f.productName.invalid"
+             class="alert-danger">
+          <div *ngIf="f.productName.errors.required">Product name is required.</div>
+          <div *ngIf="f.productName.errors.minlength">Product should be at least 3 characters long.</div>
+          <div *ngIf="f.productName.errors.maxlength">Product should not exceed 20 characters.</div>
+        </div>
       </div>
       <div class="form-group">
         <label><b>What age categories of people would the product suit?</b> <br />
@@ -26,6 +35,10 @@
             {{ageBracket.name}} <br />
           </label>
         </label>
+        <div *ngIf="f.ageBrackets.errors?.required"
+             class="alert-danger">
+          You should select at least one age category.
+        </div>
       </div>
       <div class="form-group">
         <label><b>What income categories of people would the product suit?</b> <br />
@@ -38,6 +51,10 @@
             {{incomeBracket.name}} <br />
           </label>
         </label>
+        <div *ngIf="f.incomeBrackets.errors?.required"
+             class="alert-danger">
+          You should select at least one income category.
+        </div>
       </div>
       <div class="form-group">
         <label>
@@ -61,6 +78,7 @@
       <div class="form-group">
         <input
           type="submit"
+          [disabled]="!addProductForm.valid"
           value="Add product" />
         <button
           routerLink=".."
@@ -69,9 +87,15 @@
       </div>
     </fieldset>
   </form>
-  <div *ngIf="submitted">
-    <h3>The product has been successfully added!</h3>
-    <button routerLink="..">Go back</button>
-    <button (click)="newProduct()">Add another one...</button>
+  <div *ngIf="isSubmitted">
+    <div class="alert-big-success">The product has been successfully added!</div>
+    <button
+      class="back-button"
+      routerLink=".."
+    >Go back</button>
+    <button
+      class="add-product-button"
+      (click)="newProduct()"
+    >Add another one...</button>
   </div>
 </div>
