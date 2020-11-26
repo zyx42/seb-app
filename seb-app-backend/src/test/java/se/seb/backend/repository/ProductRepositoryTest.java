@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 import se.seb.backend.domain.AgeBracket;
@@ -13,15 +15,13 @@ import se.seb.backend.domain.Product;
 import java.util.EnumSet;
 import java.util.Optional;
 
+@SpringBootTest
 @RunWith(SpringRunner.class)
 @ComponentScan(basePackages = {"se.seb.backend.repository"})
 public class ProductRepositoryTest {
 
-    private final ProductRepository productRepository;
-
-    public ProductRepositoryTest(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    @Autowired
+    private ProductRepository productRepository;
 
     @Test
     public void whenFindByProductName_thenReturnProduct() {

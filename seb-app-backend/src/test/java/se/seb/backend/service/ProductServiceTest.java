@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +19,8 @@ import se.seb.backend.repository.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.stream.Collectors;
 
+@SpringBootTest
 @RunWith(SpringRunner.class)
 public class ProductServiceTest {
 
@@ -31,15 +33,10 @@ public class ProductServiceTest {
         }
     }
 
-    private final ProductService productService;
+    @Autowired
+    private ProductService productService;
     @MockBean
-    private final ProductRepository productRepository;
-
-    public ProductServiceTest(ProductService productService,
-                              ProductRepository productRepository) {
-        this.productService = productService;
-        this.productRepository = productRepository;
-    }
+    private ProductRepository productRepository;
 
     @Before
     public void setUp() {

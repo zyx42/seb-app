@@ -8,6 +8,8 @@ body {
   text-align: left;
 }
 
+// TOP NAVBAR
+
 .top-bar {
   width: 100%;
   position: fixed;
@@ -55,6 +57,8 @@ body {
   }
 }
 
+// GENERIC CONTAINERS
+
 .content-container {
   padding: 10rem 4rem 4rem;
   background-color: $grey-base;
@@ -72,6 +76,8 @@ body {
   font-size: 1.3rem;
   padding: 0 3rem 4rem;
 }
+
+// FORMS
 
 .form-container {
   padding: 1rem 6rem;
@@ -112,16 +118,7 @@ body {
 
 }
 
-.back-button {
-  width: 100%;
-  background-color: $dark-base;
-  color: white;
-  padding: 14px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 18px;
-}
+// TABLES
 
 .product-table {
   border-collapse: collapse;
@@ -138,6 +135,19 @@ body {
     background-color: #DDD;
   }
 
+}
+
+// BUTTONS
+
+.back-button {
+  width: 100%;
+  background-color: $dark-base;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
 }
 
 .add-product-button {
@@ -166,20 +176,22 @@ body {
   border-radius: 4px;
   cursor: pointer;
   padding: 8px;
-  background-color: #F56257;
+  background-color: $red-pale;
   color: white;
 }
 
+// ALERTS
+
 .alert-danger {
   padding: 10px;
-  background-color: #F56257;
+  background-color: $red-pale;
   color: white;
   font-size: 1rem;
 }
 
 .alert-success {
   padding: 10px;
-  background-color: #6ABC6D;
+  background-color: $green-pale;
   color: white;
   font-size: 1rem;
 }
@@ -187,7 +199,7 @@ body {
 .alert-big-success {
   padding: 6rem;
   margin: 6rem;
-  background-color: #6ABC6D;
+  background-color: $green-pale;
   color: white;
   font-size: 1.5rem;
 }

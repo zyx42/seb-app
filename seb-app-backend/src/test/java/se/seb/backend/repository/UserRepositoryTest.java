@@ -4,22 +4,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 import se.seb.backend.domain.User;
 
 import java.util.EnumSet;
 
+@SpringBootTest
 @RunWith(SpringRunner.class)
 @ComponentScan(basePackages = {"se.seb.backend.repository"})
 public class UserRepositoryTest {
 
 
-    private final UserRepository userRepository;
-
-    public UserRepositoryTest(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     public void whenFindByUsername_thenReturnUser() {
