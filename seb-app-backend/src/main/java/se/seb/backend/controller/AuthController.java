@@ -18,6 +18,7 @@ import se.seb.backend.security.jwt.JwtUtils;
 import se.seb.backend.security.payload.SignupRequest;
 import se.seb.backend.service.UserService;
 
+import javax.validation.Valid;
 import java.util.EnumSet;
 
 @RestController
@@ -40,7 +41,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@RequestBody SigninRequest signinRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody SigninRequest signinRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signinRequest.getUsername(), signinRequest.getPassword()));
@@ -54,7 +55,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest) {
 
         if (userService.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken."));

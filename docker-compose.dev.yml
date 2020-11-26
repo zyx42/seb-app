@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  seb-app-backend:
+    build: seb-app-backend/
+    image: seb-app-backend
+    container_name: seb-app-backend
+    ports:
+      - 8080:8080
+
+
+  seb-app-frontend:
+    build: seb-app-frontend/
+    image: seb-app-frontend
+    container_name: seb-app-frontend
+    depends_on:
+      - seb-app-backend
+    ports:
+      - 4200:80

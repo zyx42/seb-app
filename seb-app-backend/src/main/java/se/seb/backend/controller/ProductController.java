@@ -9,6 +9,8 @@ import se.seb.backend.domain.Product;
 import se.seb.backend.security.payload.MessageResponse;
 import se.seb.backend.service.ProductService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -44,7 +46,7 @@ public class ProductController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> addNewProduct(@RequestBody Product newProduct) {
+    public ResponseEntity<?> addNewProduct(@Valid @RequestBody Product newProduct) {
 
         if (productService.existsByProductName(newProduct.getProductName())) {
 
@@ -59,7 +61,7 @@ public class ProductController {
 
     @PutMapping("/{productName}")
     public ResponseEntity<?> updateProduct(@PathVariable String productName,
-                                           @RequestBody Product updatedProduct) {
+                                           @Valid @RequestBody Product updatedProduct) {
 
         if (!productName.equalsIgnoreCase(updatedProduct.getProductName()) &&
                 productService.existsByProductName(updatedProduct.getProductName())) {
