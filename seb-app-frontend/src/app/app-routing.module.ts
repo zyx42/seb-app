@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductAddComponent } from './components/product-add/product-add.component';
+import {ProductListComponent } from './components/product-list/product-list.component';
+import {ProductAddComponent } from './components/product-add/product-add.component';
 import {HomeComponent} from './components/home/home.component';
 import {LoginComponent} from './components/login/login.component';
 import {ProductManageComponent} from './components/product-manage/product-manage.component';

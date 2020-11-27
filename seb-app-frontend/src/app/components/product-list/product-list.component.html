@@ -3,7 +3,8 @@
     <form
       class="seb-form"
       [formGroup]="queryForm"
-      (ngSubmit)="searchProductsByCriteria()">
+      #ngForm="ngForm"
+      (ngSubmit)="queryForm.valid && searchProductsByCriteria()">
       <fieldset>
         <legend>QUESTIONNAIRE:</legend>
         <div class="form-group">
@@ -15,6 +16,10 @@
               <option value="SENIOR">Senior age (65+)</option>
             </select>
           </label><br />
+          <div *ngIf="ngForm.submitted && f.ageBracket.invalid"
+               class="alert-danger">
+            You need to choose the age category.
+          </div>
 
           <label><b>What income category do you belong to?</b><br />
             <select formControlName="incomeBracket">
@@ -25,6 +30,10 @@
               <option value="HIGH_INCOME">High income (40001+)</option>
             </select>
           </label><br />
+          <div *ngIf="ngForm.submitted && f.incomeBracket.invalid"
+               class="alert-danger">
+            You need to choose the income category.
+          </div>
 
           <label><b>Are you a student?</b><br />
             <label>
@@ -40,13 +49,16 @@
                 formControlName="student"
                 name="student"
                 value="false" />
-              No</label> <br />
+              No</label>
           </label>
+          <div *ngIf="ngForm.submitted && f.student.invalid"
+               class="alert-danger">
+            You should select either yes or no.
+          </div>
         </div>
 
         <div class="form-group">
           <input type="submit"
-                 [disabled]="!queryForm.valid"
                  value="Update Product Recommendations" />
         </div>
       </fieldset>

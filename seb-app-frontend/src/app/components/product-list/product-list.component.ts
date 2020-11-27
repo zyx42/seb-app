@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../services/product.service';
+import {ProductService } from '../../services/product.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {of} from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -10,8 +9,8 @@ import {of} from 'rxjs';
 })
 export class ProductListComponent implements OnInit {
 
-  products: any;
   queryForm: FormGroup;
+  products: any;
 
   constructor(private productService: ProductService,
               private fb: FormBuilder) {

@@ -1,6 +1,5 @@
 package se.seb.backend.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.seb.backend.domain.AgeBracket;

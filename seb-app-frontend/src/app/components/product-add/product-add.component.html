@@ -3,7 +3,8 @@
     class="seb-form"
     *ngIf="!isSubmitted"
     [formGroup]="addProductForm"
-    (ngSubmit)="createProduct()"
+    #ngForm="ngForm"
+    (ngSubmit)="addProductForm.valid && createProduct()"
     novalidate>
     <fieldset>
       <legend>NEW PRODUCT</legend>
@@ -17,7 +18,7 @@
             type="text"
             formControlName="productName" />
         </label>
-        <div *ngIf="f.productName.touched && f.productName.invalid"
+        <div *ngIf="f.productName.touched && f.productName.invalid || ngForm.submitted && f.productName.invalid"
              class="alert-danger">
           <div *ngIf="f.productName.errors.required">Product name is required.</div>
           <div *ngIf="f.productName.errors.minlength">Product should be at least 3 characters long.</div>
@@ -35,7 +36,7 @@
             {{ageBracket.name}} <br />
           </label>
         </label>
-        <div *ngIf="f.ageBrackets.errors?.required"
+        <div *ngIf="ngForm.submitted && f.ageBrackets.errors?.required"
              class="alert-danger">
           You should select at least one age category.
         </div>
@@ -51,7 +52,7 @@
             {{incomeBracket.name}} <br />
           </label>
         </label>
-        <div *ngIf="f.incomeBrackets.errors?.required"
+        <div *ngIf="ngForm.submitted && f.incomeBrackets.errors?.required"
              class="alert-danger">
           You should select at least one income category.
         </div>
@@ -74,11 +75,14 @@
               value="false" />
             No</label>
         </label>
+        <div *ngIf="ngForm.submitted && f.student.invalid"
+             class="alert-danger">
+          <div *ngIf="f.student.errors.required">You should select either yes or no.</div>
+        </div>
       </div>
       <div class="form-group">
         <input
           type="submit"
-          [disabled]="!addProductForm.valid"
           value="Add product" />
         <button
           routerLink=".."
