@@ -47,7 +47,7 @@ You can always look up default users on the Home page of the application.
 - Install Docker and Docker Compose.
 
 #### Production mode
-Just copy 'docker-compose.yml' and hit 'docker-compose up'.
+Just copy 'docker-compose.yml', go to the folder with the downloaded file and run:'docker-compose up'.
 In this case, the latest images will be pulled from Docker Hub.
 After that just launch your browser and go to 'http://localhost:4200'.
 
