@@ -30,9 +30,17 @@ all data is stored in memory with some default presets of data provided.
 Security is implemented with JWT Authentication. Both backend endpoints and frontend routes are secured.
 There is also a full Login and User Registration functionality with form validation. 
  
- There are two predefined user roles: User and Product Manager. Product Manager role is obtainable 
- is only by using the default product_manager account(password="password"), while all newly
- registered users have only a role of User.
+There are two predefined user roles: User and Product Manager. Product Manager role is obtainable 
+only by using the default product_manager account(password="password"), while all newly
+registered users have only a role of User.
+
+#### Default users
+You can always look up default users on the Home page of the application.
+
+| Username        | Password | Role                 | Description                                         |
+|-----------------|----------|----------------------|-----------------------------------------------------|
+| customer        | password | ROLE_USER            | Can get product recommendations                     |
+| product_manager | password | ROLE_PRODUCT_MANAGER | Can get product recommendations and manage products |
  
 ## How to run
 #### Before you start
